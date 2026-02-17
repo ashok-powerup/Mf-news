@@ -66,7 +66,7 @@ def get_channel_videos_yesterday(channel_name):
              uploads_playlist_id = channel_response['items'][0]['contentDetails']['relatedPlaylists']['uploads']
 
         # 3. Calculate Yesterday's Date (UTC)
-        today = datetime.datetime.utcnow().date()
+        today = datetime.datetime.now(datetime.timezone.utc).date()
         yesterday = today - datetime.timedelta(days=1)
         print(f"Looking for videos published on: {yesterday} (UTC)")
 
@@ -79,6 +79,7 @@ def get_channel_videos_yesterday(channel_name):
             part='snippet,contentDetails',
             maxResults=50
         ).execute()
+
 
         for item in playlist_response.get('items', []):
             published_at_str = item['contentDetails'].get('videoPublishedAt') or item['snippet'].get('publishedAt')
@@ -291,9 +292,9 @@ def main():
     # ---------------------------------------------------------
     channels_to_scan = [
         "Zee Business",
-        "@manoramanews",
-        "@CNBC-TV18",
-        "ET Now"
+        # "@manoramanews",
+        # "@CNBC-TV18",
+        # "ET Now"
     ]
     # ---------------------------------------------------------
 
